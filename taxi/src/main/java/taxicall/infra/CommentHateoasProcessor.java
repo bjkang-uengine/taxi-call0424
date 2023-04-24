@@ -13,9 +13,7 @@ public class CommentHateoasProcessor
     @Override
     public EntityModel<Comment> process(EntityModel<Comment> model) {
         model.add(
-            Link
-                .of(model.getRequiredLink("self").getHref() + "/drivercomment")
-                .withRel("drivercomment")
+            Link.of(model.getRequiredLink("self").getHref() + "/").withRel("")
         );
 
         return model;

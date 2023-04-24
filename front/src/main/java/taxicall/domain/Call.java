@@ -6,7 +6,6 @@ import javax.persistence.*;
 import lombok.Data;
 import taxicall.FrontApplication;
 import taxicall.domain.Called;
-import taxicall.domain.Commented;
 
 @Entity
 @Table(name = "Call_table")
@@ -35,18 +34,6 @@ public class Call {
     public void onPostPersist() {
         Called called = new Called(this);
         called.publishAfterCommit();
-
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        taxicall.external.DriverCommentCommand driverCommentCommand = new taxicall.external.DriverCommentCommand();
-        // mappings goes here
-        FrontApplication.applicationContext
-            .getBean(taxicall.external.CommentService.class)
-            .driverComment(/* get???(), */driverCommentCommand);
-
-        Commented commented = new Commented(this);
-        commented.publishAfterCommit();
     }
 
     public static CallRepository repository() {
@@ -61,7 +48,19 @@ public class Call {
         canceled.publishAfterCommit();
     }
 
-    public void inputComment(InputCommentCommand inputCommentCommand) {}
+    public void inputComment(InputCommentCommand inputCommentCommand) {
+        Commented commented = new Commented(this);
+        commented.publishAfterCommit();
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        taxicall.external.Comment comment = new taxicall.external.Comment();
+        // mappings goes here
+        FrontApplication.applicationContext
+            .getBean(taxicall.external.CommentService.class)
+            .driverComment(comment);
+    }
 
     public static void updateTaxiInfo(Dispatched dispatched) {
         /** Example 1:  new item 

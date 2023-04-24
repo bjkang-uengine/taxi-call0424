@@ -23,7 +23,9 @@ public class TaxiCallHateoasProcessor
                 .withRel("목적지도착")
         );
         model.add(
-            Link.of(model.getRequiredLink("self").getHref() + "/").withRel("")
+            Link
+                .of(model.getRequiredLink("self").getHref() + "/paymentrequest")
+                .withRel("paymentrequest")
         );
         model.add(
             Link

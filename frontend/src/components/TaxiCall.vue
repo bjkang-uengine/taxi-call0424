@@ -322,18 +322,17 @@
             closeArrival() {
                 this.arrivalDiagram = false;
             },
-            async paymentRequest() {
+            async paymentRequest(params) {
                 try {
-                    if(!this.offline){
-                        var temp = await axios.post(axios.fixUrl(this.value._links[''].href))
-                        for(var k in temp.data) this.value[k]=temp.data[k];
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['paymentrequest'].href), params)
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
                     }
 
                     this.editMode = false;
-                    
-                    this.$emit('input', this.value);
-                    this.$emit('delete', this.value);
-                
+                    this.closePaymentRequest();
                 } catch(e) {
                     this.snackbar.status = true
                     if(e.response && e.response.data.message) {
@@ -342,6 +341,12 @@
                         this.snackbar.text = e
                     }
                 }
+            },
+            openPaymentRequest() {
+                this.paymentRequestDiagram = true;
+            },
+            closePaymentRequest() {
+                this.paymentRequestDiagram = false;
             },
             async accept(params) {
                 try {

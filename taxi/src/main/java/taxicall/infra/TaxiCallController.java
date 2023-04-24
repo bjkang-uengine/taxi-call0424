@@ -63,17 +63,23 @@ public class TaxiCallController {
     }
 
     @RequestMapping(
-        value = "taxiCalls/",
-        method = RequestMethod.POST,
+        value = "taxiCalls/{id}/paymentrequest",
+        method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8"
     )
     public TaxiCall paymentRequest(
+        @PathVariable(value = "id") Long id,
+        @RequestBody PaymentRequestCommand paymentRequestCommand,
         HttpServletRequest request,
-        HttpServletResponse response,
-        @RequestBody TaxiCall taxiCall
+        HttpServletResponse response
     ) throws Exception {
         System.out.println("##### /taxiCall/paymentRequest  called #####");
-        taxiCall.paymentRequest(paymentRequestcommand);
+        Optional<TaxiCall> optionalTaxiCall = taxiCallRepository.findById(id);
+
+        optionalTaxiCall.orElseThrow(() -> new Exception("No Entity Found"));
+        TaxiCall taxiCall = optionalTaxiCall.get();
+        taxiCall.paymentRequest(paymentRequestCommand);
+
         taxiCallRepository.save(taxiCall);
         return taxiCall;
     }
