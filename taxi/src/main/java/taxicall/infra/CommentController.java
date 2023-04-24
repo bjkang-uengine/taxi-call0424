@@ -19,23 +19,17 @@ public class CommentController {
     CommentRepository commentRepository;
 
     @RequestMapping(
-        value = "comments/{id}/drivercomment",
-        method = RequestMethod.PUT,
+        value = "comments/",
+        method = RequestMethod.POST,
         produces = "application/json;charset=UTF-8"
     )
     public Comment driverComment(
-        @PathVariable(value = "id") Long id,
-        @RequestBody DriverCommentCommand driverCommentCommand,
         HttpServletRequest request,
-        HttpServletResponse response
+        HttpServletResponse response,
+        @RequestBody Comment comment
     ) throws Exception {
         System.out.println("##### /comment/driverComment  called #####");
-        Optional<Comment> optionalComment = commentRepository.findById(id);
-
-        optionalComment.orElseThrow(() -> new Exception("No Entity Found"));
-        Comment comment = optionalComment.get();
-        comment.driverComment(driverCommentCommand);
-
+        comment.driverComment(driverCommentcommand);
         commentRepository.save(comment);
         return comment;
     }

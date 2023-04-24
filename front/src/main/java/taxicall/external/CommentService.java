@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(name = "taxi", url = "${api.url.taxi}")
 public interface CommentService {
-    @RequestMapping(
-        method = RequestMethod.PUT,
-        path = "/comments/{id}/drivercomment"
-    )
+    @RequestMapping(method = RequestMethod.POST, path = "/comments/{id}")
     public void driverComment(
         @PathVariable("id") Long id,
         @RequestBody DriverCommentCommand driverCommentCommand
