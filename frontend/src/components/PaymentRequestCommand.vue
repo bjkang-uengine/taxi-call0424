@@ -6,7 +6,7 @@
         </v-card-title>
 
         <v-card-text>
-            <String label="CalliId" v-model="value.calliId" :editMode="editMode"/>
+            <Number label="CalliId" v-model="value.calliId" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -42,7 +42,7 @@
             value: {},
         }),
         created() {
-            this.value.calliId = '';
+            this.value.calliId = 0;
         },
         watch: {
         },

@@ -10,5 +10,5 @@ public class PaymentRequestCommand {
 
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
-    private String calliId;
+    private Long calliId;
 }
