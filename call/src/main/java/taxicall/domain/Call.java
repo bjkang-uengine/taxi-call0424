@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
-import taxicall.FrontApplication;
+import taxicall.CallApplication;
 import taxicall.domain.Called;
 
 @Entity
@@ -16,7 +16,7 @@ public class Call {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long userid;
+    private String userid;
 
     private String userlocation;
 
@@ -37,7 +37,7 @@ public class Call {
     }
 
     public static CallRepository repository() {
-        CallRepository callRepository = FrontApplication.applicationContext.getBean(
+        CallRepository callRepository = CallApplication.applicationContext.getBean(
             CallRepository.class
         );
         return callRepository;
@@ -57,9 +57,23 @@ public class Call {
 
         taxicall.external.Comment comment = new taxicall.external.Comment();
         // mappings goes here
-        FrontApplication.applicationContext
+        CallApplication.applicationContext
             .getBean(taxicall.external.CommentService.class)
             .driverComment(comment);
+    }
+
+    public void inputComment2(InputComment2Command inputComment2Command) {
+        Commented2 commented2 = new Commented2(this);
+        commented2.publishAfterCommit();
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        taxicall.external.Comment comment = new taxicall.external.Comment();
+        // mappings goes here
+        CallApplication.applicationContext
+            .getBean(taxicall.external.CommentService.class)
+            .driverComment2(comment);
     }
 
     public static void updateTaxiInfo(Dispatched dispatched) {

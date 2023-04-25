@@ -8,7 +8,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: front
+        - id: call
           uri: http://localhost:8081
           predicates:
             - Path=/calls/**, 
@@ -47,8 +47,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: front
-          uri: http://front:8080
+        - id: call
+          uri: http://call:8080
           predicates:
             - Path=/calls/**, 
         - id: taxi

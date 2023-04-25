@@ -10,12 +10,11 @@ import taxicall.config.kafka.KafkaProcessor;
 @SpringBootApplication
 @EnableBinding(KafkaProcessor.class)
 @EnableFeignClients
-public class FrontApplication {
+public class CallApplication {
 
     public static ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        applicationContext =
-            SpringApplication.run(FrontApplication.class, args);
+        applicationContext = SpringApplication.run(CallApplication.class, args);
     }
 }

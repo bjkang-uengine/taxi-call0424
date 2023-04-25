@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: front
+    name: call
 ---
 
 spring:
@@ -27,7 +27,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: front
+          group: call
           destination: taxicall
           contentType: application/json
         event-out:
@@ -41,6 +41,7 @@ logging:
 
 api:
   url: localhost:8082
+localhost:8082
 
 
 server:
@@ -65,7 +66,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: front
+          group: call
           destination: taxicall
           contentType: application/json
         event-out:

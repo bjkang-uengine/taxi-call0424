@@ -20,7 +20,7 @@ cd /bin
 ## Run the backend micro-services
 See the README.md files inside the each microservices directory:
 
-- front
+- call
 - taxi
 - point
 - customer
@@ -33,7 +33,7 @@ mvn spring-boot:run
 ```
 
 ## Test by API
-- front
+- call
 ```
  http :8088/calls id="id" userid="userid" userlocation="userlocation" destination="destination" status="status" payType="payType" taxiId="taxiId" driverComment="driverComment" 
 ```
