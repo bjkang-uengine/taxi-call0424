@@ -109,7 +109,7 @@
             this.values = temp.data._embedded.calls;
             
             this.newValue = {
-                'userid': 0,
+                'userid': '',
                 'userlocation': '',
                 'destination': '',
                 'status': '',

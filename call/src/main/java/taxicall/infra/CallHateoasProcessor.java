@@ -22,6 +22,11 @@ public class CallHateoasProcessor
                 .of(model.getRequiredLink("self").getHref() + "/inpitcomment")
                 .withRel("inpitcomment")
         );
+        model.add(
+            Link
+                .of(model.getRequiredLink("self").getHref() + "/inputcomment")
+                .withRel("inputcomment")
+        );
 
         return model;
     }

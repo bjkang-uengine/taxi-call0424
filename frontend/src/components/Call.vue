@@ -17,7 +17,7 @@
         </v-card-title >
 
         <v-card-text>
-            <Number label="Userid" v-model="value.userid" :editMode="editMode"/>
+            <String label="Userid" v-model="value.userid" :editMode="editMode"/>
             <String label="Userlocation" v-model="value.userlocation" :editMode="editMode"/>
             <String label="Destination" v-model="value.destination" :editMode="editMode"/>
             <String label="Status" v-model="value.status" :editMode="editMode"/>
@@ -85,6 +85,20 @@
                         @inputComment="inputComment"
                 ></InputCommentCommand>
             </v-dialog>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="openInputComment2"
+            >
+                InputComment2
+            </v-btn>
+            <v-dialog v-model="inputComment2Diagram" width="500">
+                <InputComment2Command
+                        @closeDialog="closeInputComment2"
+                        @inputComment2="inputComment2"
+                ></InputComment2Command>
+            </v-dialog>
         </v-card-actions>
 
         <v-snackbar
@@ -123,6 +137,7 @@
                 text: ''
             },
             inputCommentDiagram: false,
+            inputComment2Diagram: false,
         }),
         computed:{
         },
@@ -261,6 +276,32 @@
             },
             closeInputComment() {
                 this.inputCommentDiagram = false;
+            },
+            async inputComment2(params) {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['inputcomment'].href), params)
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                    this.closeInputComment2();
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            openInputComment2() {
+                this.inputComment2Diagram = true;
+            },
+            closeInputComment2() {
+                this.inputComment2Diagram = false;
             },
             async () {
                 try {

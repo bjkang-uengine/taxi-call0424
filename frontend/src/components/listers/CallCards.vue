@@ -68,7 +68,7 @@
             me.values = temp.data._embedded.calls;
             
             me.newValue = {
-                'userid': 0,
+                'userid': '',
                 'userlocation': '',
                 'destination': '',
                 'status': '',

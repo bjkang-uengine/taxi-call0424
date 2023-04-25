@@ -60,4 +60,26 @@ public class CallController {
         callRepository.save(call);
         return call;
     }
+
+    @RequestMapping(
+        value = "calls/{id}/inputcomment",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public Call inputComment2(
+        @PathVariable(value = "id") Long id,
+        @RequestBody InputComment2Command inputComment2Command,
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws Exception {
+        System.out.println("##### /call/inputComment2  called #####");
+        Optional<Call> optionalCall = callRepository.findById(id);
+
+        optionalCall.orElseThrow(() -> new Exception("No Entity Found"));
+        Call call = optionalCall.get();
+        call.inputComment2(inputComment2Command);
+
+        callRepository.save(call);
+        return call;
+    }
 }

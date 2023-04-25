@@ -23,12 +23,12 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='Accumulationed'"
     )
-    public void wheneverAccumulationed_Notification(
+    public void wheneverAccumulationed_UserNotification(
         @Payload Accumulationed accumulationed
     ) {
         Accumulationed event = accumulationed;
         System.out.println(
-            "\n\n##### listener Notification : " + accumulationed + "\n\n"
+            "\n\n##### listener UserNotification : " + accumulationed + "\n\n"
         );
         // Sample Logic //
 
@@ -38,12 +38,12 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='Departured'"
     )
-    public void wheneverDepartured_Notification(
+    public void wheneverDepartured_UserNotification(
         @Payload Departured departured
     ) {
         Departured event = departured;
         System.out.println(
-            "\n\n##### listener Notification : " + departured + "\n\n"
+            "\n\n##### listener UserNotification : " + departured + "\n\n"
         );
         // Sample Logic //
 
@@ -53,12 +53,12 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='Dispatched'"
     )
-    public void wheneverDispatched_Notification(
+    public void wheneverDispatched_UserNotification(
         @Payload Dispatched dispatched
     ) {
         Dispatched event = dispatched;
         System.out.println(
-            "\n\n##### listener Notification : " + dispatched + "\n\n"
+            "\n\n##### listener UserNotification : " + dispatched + "\n\n"
         );
         // Sample Logic //
 

@@ -2,8 +2,8 @@ package taxicall.common;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import taxicall.FrontApplication;
+import taxicall.CallApplication;
 
 @CucumberContextConfiguration
-@SpringBootTest(classes = { FrontApplication.class })
+@SpringBootTest(classes = { CallApplication.class })
 public class CucumberSpingConfiguration {}
